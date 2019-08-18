@@ -1,0 +1,282 @@
+" Personal Vim Configuration
+
+" Plugins List
+call plug#begin('~/.vim/plugged')
+" UI
+" Plug 'Yggdroot/indentLine'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'sts10/vim-pink-moon'
+Plug 'icymind/NeoSolarized'
+" File Tree
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Tag Tree
+Plug 'majutsushi/tagbar'
+" Version Control
+Plug 'airblade/vim-gitgutter'
+" Searcher
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" Plug 'junegunn/fzf.vim'
+" Language Support
+" Plug 'davidhalter/jedi-vim'
+" Plug 'ludovicchabant/vim-gutentags'
+" Better Editor
+" Plug 'junegunn/vim-easy-align'
+" Plug 'vim-scripts/VOoM'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'vim-python/python-syntax'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'easymotion/vim-easymotion'
+" Plug 'leshill/vim-json'
+" Plug 'editorconfig/editorconfig-vim'
+" Markdown
+Plug 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+" Plug 'lvht/tagbar-markdown'
+" Plug 'tmhedberg/simpylfold'
+" Completetion
+call plug#end()
+
+" Basic Settings
+syntax enable                " Enable syntax check.
+syntax on                    " Enable syntax highlighting.
+filetype on                  " Enable filetype check.
+filetype plugin indent on    " Load plugins according to detected filetype.
+set nocompatible             " Not compatible with Vi.
+set vb t_vb=                 " Stop bell.
+set nowrap                   " Display auto new line.
+set laststatus=2             " Always show statusline.
+set display=lastline         " Show as much as possible of the last line.
+set sidescroll=1             " Move horizontally in smooth way.
+set showmatch                " Show match bracket.
+set showmode               " Show current mode in command-line.
+" set noshowmode               " No mode in command-line.
+set showcmd                  " Show already typed keys when more are expected.
+set hlsearch                 " Hightlight the search.
+set incsearch                " Move to fit position after each char input.
+set hidden                   " Swith between buffers without saving first.
+set clipboard=unnamed        " Use system clipboard.
+set backspace=indent,eol,start " Better backspace.
+set ttyfast                  " Fast redrawing.
+set lazyredraw               " Only redraw when necessary.
+" set novisualbell           " Something wrong.
+" set paste                  " Keep format when pasting, something wrong.
+set ignorecase               " Ignore case when searching.
+set autoread                 " Auto read file when changed.
+set updatetime=100           " Set updatetime.
+set mouse=a                  " Enable mouse.
+
+" Backup settings
+" set nowritebackup          " No writeback when save file
+" set nobackup               " No backup when save file
+" set noswapfile             " No swapfile
+set backup                   " Set backup files
+set backupdir=$HOME/.vim/files/backup
+set backupext=-vimbackup
+set backupskip=
+set directory=$HOME/.vim/files/swap " Set swap files
+set updatecount=100
+set undofile                 " Set undo files
+set undodir=$HOME/.vim/files/undo
+
+" Tab and indent behavior settings
+set tabstop=4                " Set lenght of tab to 4 spaces
+set shiftwidth=4             " >> indents by 4 spaces
+set softtabstop=4            " Tab key indents by 4 spaces
+set expandtab                " Use spaces instead of tabs
+set shiftround               " >> indents to next multiple of 'shiftwidth'
+set autoindent               " Indent according to previous line
+set smartindent              " Smart indent
+
+" Encoding Settings
+" set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+" set termencoding=utf-8
+set encoding=utf-8
+
+" UI Settings
+set nu
+set cursorline
+set cursorcolumn
+set cc=80
+set background=dark
+set termguicolors
+" colorscheme pink-moon
+colorscheme NeoSolarized
+
+" Show tabs and special space.
+set list
+set listchars=tab:>\ ,trail:.,extends:>,precedes:<,nbsp:.
+highlight WhitespaceEOL ctermbg=red guibg=red
+match WhitespaceEOL /\s\+$/
+
+" Keybindings Settings
+let mapleader=' '
+inoremap <C-e> <Esc>A
+inoremap <C-a> <Esc>I
+inoremap <C-CR> <Esc>o
+inoremap <S-CR> <Esc>O
+nnoremap j gj
+nnoremap k gk
+nnoremap <C-j> jjjj
+nnoremap <C-k> kkkk
+nnoremap <leader><leader>n :noh<CR>
+nnoremap <leader><leader>h :vertical help 
+
+" Statusline Settings
+set statusline=
+" set statusline+=%#LineNr#
+" set statusline+=%#PmenuSel#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+" set statusline+=%#LineNr#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\ 
+
+" NerdTree
+let NERDTreeShowHidden = 1             " Show hidden file.
+let NERDTreeShowLineNumbers = 0        " Show line number.
+let NERDTreeWinPos = 'left'            " Postion of nerdtree.
+let NERDTreeWinSize = 30               " Size of nerdtree.
+let NERDTreeIgnore = ['\.pyc$', '\~$']   " Ignore files in NERDTree.
+let NERDTreeMouseMode = 3
+map <leader><leader>e :NERDTreeToggle<CR> " Shortcut for open nerdtree
+
+" Tagbar
+" let g:tagbar_ctags_bin="D:\\program\\ctags\\ctags.exe"
+let g:tagbar_sort=0
+map <leader><leader>t :TagbarToggle<CR>
+
+" NerdCommenter
+let g:NERDSpaceDelims=1                " Put one space between comment and first word.
+nnoremap <leader>/ :NERDCommenterToggle<Enter>
+
+" EasyMotion
+let g:EasyMotion_do_mapping = 0        " Disable default mappings.
+let g:EasyMotion_smartcase = 1         " Smart case.
+" let g:EasyMotion_startofline = 0     " Keep cursor colum when JK motion.
+" map f <Plug>(easymotion-prefix)
+" map ff <Plug>(easymotion-s)
+nmap <leader>w <Plug>(easymotion-overwin-w)
+nmap <leader>e <Plug>(easymotion-overwin-e)
+" map fh <Plug>(easymotion-linebackward)
+nmap <leader>j <Plug>(easymotion-j)
+nmap <leader>k <Plug>(easymotion-k)
+" map fl <Plug>(easymotion-lineforward)
+" map f. <Plug>(easymotion-repeat)
+
+" vim-multiple-cursors
+let g:multi_cursor_exit_from_visual_mode = 0
+let g:multi_cursor_exit_from_insert_mode = 0
+
+" LeaderF
+let g:Lf_StlSeparator = { 'left': '', 'right': '' }
+" let g:Lf_Ctags = "D:\\program\\ctags\\ctags.exe"
+let g:Lf_ReverseOrder = 1
+let g:Lf_WindowHeight = 0.30
+noremap <leader>o :LeaderfBufTag<Enter>
+noremap <leader>r :LeaderfMru<Enter>
+noremap <leader>l :LeaderfLine<Enter>
+let g:Lf_StlPalette = {
+        \   'stlName': {
+        \       'gui': 'bold',
+        \       'font': 'NONE',
+        \       'guifg': '#000000',
+        \       'guibg': '#fabd2f',
+        \       'cterm': 'bold',
+        \       'ctermfg': '22',
+        \       'ctermbg': '157'
+        \   },
+        \   'stlCategory': {
+        \       'gui': 'NONE',
+        \       'font': 'NONE',
+        \       'guifg': '#000000',
+        \       'guibg': '#fabd2f',
+        \       'cterm': 'NONE',
+        \       'ctermfg': '16',
+        \       'ctermbg': '210'
+        \   },
+        \   'stlNameOnlyMode': {
+        \       'gui': 'NONE',
+        \       'font': 'NONE',
+        \       'guifg': '#000000',
+        \       'guibg': '#E8ED51',
+        \       'cterm': 'NONE',
+        \       'ctermfg': '16',
+        \       'ctermbg': '227'
+        \   },
+        \   'stlFullPathMode': {
+        \       'gui': 'NONE',
+        \       'font': 'NONE',
+        \       'guifg': '#000000',
+        \       'guibg': '#fabd2f',
+        \       'cterm': 'NONE',
+        \       'ctermfg': '16',
+        \       'ctermbg': '147'
+        \   },
+        \   'stlFuzzyMode': {
+        \       'gui': 'NONE',
+        \       'font': 'NONE',
+        \       'guifg': '#000000',
+        \       'guibg': '#E8ED51',
+        \       'cterm': 'NONE',
+        \       'ctermfg': '16',
+        \       'ctermbg': '227'
+        \   },
+        \   'stlRegexMode': {
+        \       'gui': 'NONE',
+        \       'font': 'NONE',
+        \       'guifg': '#000000',
+        \       'guibg': '#7FECAD',
+        \       'cterm': 'NONE',
+        \       'ctermfg': '16',
+        \       'ctermbg': '121'
+        \   },
+        \   'stlCwd': {
+        \       'gui': 'NONE',
+        \       'font': 'NONE',
+        \       'guifg': '#000000',
+        \       'guibg': '#fabd2f',
+        \       'cterm': 'NONE',
+        \       'ctermfg': '195',
+        \       'ctermbg': '241'
+        \   },
+        \   'stlBlank': {
+        \       'gui': 'NONE',
+        \       'font': 'NONE',
+        \       'guifg': 'NONE',
+        \       'guibg': '#fabd2f',
+        \       'cterm': 'NONE',
+        \       'ctermfg': 'NONE',
+        \       'ctermbg': '237'
+        \   },
+        \   'stlLineInfo': {
+        \       'gui': 'NONE',
+        \       'font': 'NONE',
+        \       'guifg': '#000000',
+        \       'guibg': '#fabd2f',
+        \       'cterm': 'NONE',
+        \       'ctermfg': '16',
+        \       'ctermbg': '195'
+        \   },
+        \   'stlTotal': {
+        \       'gui': 'NONE',
+        \       'font': 'NONE',
+        \       'guifg': '#000000',
+        \       'guibg': '#fabd2f',
+        \       'cterm': 'NONE',
+        \       'ctermfg': '16',
+        \       'ctermbg': '149'
+        \   }
+        \ }
+
+" python-syntax
+let g:python_highlight_all = 1
+let g:python_version_2 = 1
+
